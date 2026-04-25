@@ -1,4 +1,5 @@
 import { ImageResponse } from "@vercel/og";
+import ministries from "@/data/ministries-2024-25.json";
 import { roundToShareBucket } from "@/lib/tax";
 
 export const runtime = "edge";
@@ -10,7 +11,10 @@ export async function GET(request: Request) {
   const taxBucket = roundToShareBucket(
     Number(url.searchParams.get("taxBucket") ?? "0"),
   );
-  const top = url.searchParams.get("top") ?? "budget";
+  const topId = url.searchParams.get("top") ?? "defence";
+  const ministry = ministries.ministries.find((m) => m.id === topId);
+  const topLabel =
+    locale === "hi" ? (ministry?.labelHi ?? topId) : (ministry?.labelEn ?? topId);
   const height = variant === "square" ? 1080 : 1920;
 
   return new ImageResponse(
@@ -69,8 +73,8 @@ export async function GET(request: Request) {
             }}
           >
             {locale === "hi"
-              ? `BE 2026-27 spending mix के अनुसार top bucket: ${top}`
-              : `Allocated using the BE 2026-27 spending mix. Top bucket: ${top}`}
+              ? `FY 2024-25 CGA वास्तविक खर्च मिश्रण। शीर्ष मंत्रालय: ${topLabel}`
+              : `FY 2024-25 CGA actual spending mix. Top ministry: ${topLabel}`}
           </div>
         </div>
         <div

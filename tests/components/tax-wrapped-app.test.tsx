@@ -9,7 +9,7 @@ describe("TaxWrappedApp", () => {
 
     expect(
       screen.getByRole("heading", {
-        name: /where did your tax go in fy 2025-26/i,
+        name: /where did your tax go in fy 2024-25/i,
       }),
     ).toBeInTheDocument();
     expect(screen.getByText(/new regime only for now/i)).toBeInTheDocument();
@@ -30,8 +30,9 @@ describe("TaxWrappedApp", () => {
     );
     await user.click(screen.getByRole("button", { name: /reveal/i }));
 
-    expect(screen.getAllByText("₹1,50,800").length).toBeGreaterThan(0);
-    expect(screen.getByText(/centre vs states/i)).toBeInTheDocument();
+    expect(screen.getAllByText("₹2,15,800").length).toBeGreaterThan(0);
+    expect(screen.getByText(/grants to states/i)).toBeInTheDocument();
+    expect(screen.getByText(/Defence/i)).toBeInTheDocument();
     expect(screen.getAllByText(/interest payments/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/share a rounded/i)).toBeInTheDocument();
   });

@@ -1,6 +1,6 @@
 {
-  "welcomeTitle": "Where did your tax go in FY 2025-26?",
-  "welcomeSubtitle": "See the Union Budget through your salary.",
+  "welcomeTitle": "Where did your tax go in FY 2024-25?",
+  "welcomeSubtitle": "See Union spending through your salary — using CGA provisional actuals when you load the real split.",
   "start": "Start",
   "newRegimeOnly": "New regime only for now — old regime coming soon.",
   "trust": "We don't store your income. Calculations happen in your browser.",
@@ -16,5 +16,5 @@
   "copyLink": "Copy link",
   "whatsapp": "WhatsApp",
   "x": "X",
-  "estimated": "Estimated from Budget Estimates. Income tax only; GST and other indirect taxes are separate."
+  "actualsNote": "Income tax only, FY 2024-25 / AY 2025-26 new regime. Spending split uses CGA functional actuals when provided; GST and other indirect taxes are separate."
 }

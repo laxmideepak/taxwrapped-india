@@ -46,7 +46,7 @@
   {
     "schemeId": "national_highways",
     "schemeName": "National Highways",
-    "rupeesPerUnit": 2000000,
+    "rupeesPerUnit": 20000,
     "unitLabel": {
       "en": "metres of highway",
       "hi": "मीटर राष्ट्रीय राजमार्ग"

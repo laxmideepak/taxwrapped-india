@@ -1,0 +1,56 @@
+{
+  "fiscalYear": "2024-25",
+  "basis": "TODO: Paste CGA FY 2024-25 provisional actuals (Controller General of Accounts, Monthly Account March 2025, cga.nic.in). Ratios must sum to 1. Until then all ratios are 0 — the app assigns the full tax to the last functional head for reconciliation only; not for publication.",
+  "sourceId": "cga_placeholder",
+  "topLevelHeads": [
+    {
+      "id": "interest_payments",
+      "labelEn": "Interest Payments",
+      "labelHi": "ब्याज भुगतान",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    },
+    {
+      "id": "major_subsidies",
+      "labelEn": "Major Subsidies",
+      "labelHi": "प्रमुख सब्सिडी",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    },
+    {
+      "id": "defence_services",
+      "labelEn": "Defence Services",
+      "labelHi": "रक्षा सेवाएं",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    },
+    {
+      "id": "grants_loans_states",
+      "labelEn": "Grants and Loans to States",
+      "labelHi": "राज्यों को अनुदान और ऋण",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    },
+    {
+      "id": "pensions",
+      "labelEn": "Pensions",
+      "labelHi": "पेंशन",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    },
+    {
+      "id": "other_revenue_expenditure",
+      "labelEn": "Other Revenue Expenditure",
+      "labelHi": "अन्य राजस्व व्यय",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    },
+    {
+      "id": "capital_expenditure",
+      "labelEn": "Capital Expenditure",
+      "labelHi": "पूंजीगत व्यय",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    }
+  ]
+}

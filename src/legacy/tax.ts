@@ -13,8 +13,8 @@ export type SlabBreakdown = {
 
 export type TaxResult = {
   regime: "new";
-  financialYear: "2024-25";
-  assessmentYear: "2025-26";
+  financialYear: "2025-26";
+  assessmentYear: "2026-27";
   grossSalary: number;
   standardDeduction: number;
   taxableIncome: number;
@@ -32,17 +32,18 @@ export type TaxResult = {
 
 const STANDARD_DEDUCTION = 75_000;
 const CESS_RATE = 0.04;
-const REBATE_TAXABLE_LIMIT = 700_000;
-const MAX_REBATE = 25_000;
+const REBATE_LIMIT = 1_200_000;
+const MAX_REBATE = 60_000;
 const SHARE_BUCKET = 5_000;
 
 const SLABS = [
-  { from: 0, to: 300_000, rate: 0 },
-  { from: 300_000, to: 700_000, rate: 0.05 },
-  { from: 700_000, to: 1_000_000, rate: 0.1 },
-  { from: 1_000_000, to: 1_200_000, rate: 0.15 },
-  { from: 1_200_000, to: 1_500_000, rate: 0.2 },
-  { from: 1_500_000, to: null, rate: 0.3 },
+  { from: 0, to: 400_000, rate: 0 },
+  { from: 400_000, to: 800_000, rate: 0.05 },
+  { from: 800_000, to: 1_200_000, rate: 0.1 },
+  { from: 1_200_000, to: 1_600_000, rate: 0.15 },
+  { from: 1_600_000, to: 2_000_000, rate: 0.2 },
+  { from: 2_000_000, to: 2_400_000, rate: 0.25 },
+  { from: 2_400_000, to: null, rate: 0.3 },
 ] as const;
 
 const SURCHARGE_TIERS = [
@@ -52,10 +53,7 @@ const SURCHARGE_TIERS = [
 ] as const;
 
 export function calculateNewRegimeTax(input: TaxInput): TaxResult {
-  const taxableIncome = Math.max(
-    0,
-    Math.round(input.grossSalary - STANDARD_DEDUCTION),
-  );
+  const taxableIncome = Math.max(0, Math.round(input.grossSalary - STANDARD_DEDUCTION));
   const result = getTaxForTaxableIncome(taxableIncome);
 
   if (typeof input.exactTaxPaid === "number" && input.exactTaxPaid >= 0) {
@@ -78,10 +76,8 @@ export function getTaxForTaxableIncome(taxableIncome: number): TaxResult {
   const roundedIncome = Math.max(0, Math.round(taxableIncome));
   const slabs = buildSlabBreakdown(roundedIncome);
   const baseTaxBeforeRebate = sum(slabs.map((slab) => slab.tax));
-  const { rebate, taxAfterRebate } = computeRebateAndTaxAfterRebate(
-    roundedIncome,
-    baseTaxBeforeRebate,
-  );
+  const rebate = calculateRebate(roundedIncome, baseTaxBeforeRebate);
+  const taxAfterRebate = Math.max(0, baseTaxBeforeRebate - rebate);
   const surchargeRate = getSurchargeRate(roundedIncome);
   const surchargeBeforeRelief = Math.round(taxAfterRebate * surchargeRate);
   const taxAfterSurcharge = applySurchargeMarginalRelief(
@@ -93,8 +89,8 @@ export function getTaxForTaxableIncome(taxableIncome: number): TaxResult {
 
   return {
     regime: "new",
-    financialYear: "2024-25",
-    assessmentYear: "2025-26",
+    financialYear: "2025-26",
+    assessmentYear: "2026-27",
     grossSalary: roundedIncome + STANDARD_DEDUCTION,
     standardDeduction: STANDARD_DEDUCTION,
     taxableIncome: roundedIncome,
@@ -133,23 +129,17 @@ function buildSlabBreakdown(taxableIncome: number): SlabBreakdown[] {
   });
 }
 
-function computeRebateAndTaxAfterRebate(
-  taxableIncome: number,
-  baseTaxBeforeRebate: number,
-): { rebate: number; taxAfterRebate: number } {
-  if (taxableIncome <= REBATE_TAXABLE_LIMIT) {
-    const rebate = Math.min(MAX_REBATE, baseTaxBeforeRebate);
-    return {
-      rebate,
-      taxAfterRebate: Math.max(0, baseTaxBeforeRebate - rebate),
-    };
+function calculateRebate(taxableIncome: number, tax: number): number {
+  if (taxableIncome <= REBATE_LIMIT) {
+    return Math.min(tax, MAX_REBATE);
   }
 
-  const incomeOverSevenLakh = Math.max(0, taxableIncome - REBATE_TAXABLE_LIMIT);
-  const taxAfterRebate = Math.min(baseTaxBeforeRebate, incomeOverSevenLakh);
-  const rebate = Math.max(0, baseTaxBeforeRebate - taxAfterRebate);
+  const incomeOverLimit = taxableIncome - REBATE_LIMIT;
+  if (tax > incomeOverLimit) {
+    return Math.min(tax - incomeOverLimit, MAX_REBATE);
+  }
 
-  return { rebate, taxAfterRebate };
+  return 0;
 }
 
 function getSurchargeRate(taxableIncome: number): number {
@@ -173,10 +163,8 @@ function applySurchargeMarginalRelief(
 function getTaxForThreshold(threshold: number): number {
   const slabs = buildSlabBreakdown(threshold);
   const tax = sum(slabs.map((slab) => slab.tax));
-  const { rebate, taxAfterRebate } = computeRebateAndTaxAfterRebate(
-    threshold,
-    tax,
-  );
+  const rebate = calculateRebate(threshold, tax);
+  const taxAfterRebate = tax - rebate;
   const rate = getSurchargeRate(threshold);
   return taxAfterRebate + Math.round(taxAfterRebate * rate);
 }

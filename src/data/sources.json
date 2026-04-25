@@ -1,17 +1,17 @@
 [
   {
-    "id": "budget_at_a_glance_2026_27",
-    "name": "Union Budget at a Glance 2026-2027",
-    "publisher": "Ministry of Finance, Government of India",
-    "url": "https://www.indiabudget.gov.in/doc/Budget_at_Glance/budget_at_a_glance.pdf",
-    "usedFor": "Rupee Goes To spending split and Budget Estimate basis"
+    "id": "cga_monthly_account_march_2025",
+    "name": "Controller General of Accounts — Monthly Account (March 2025)",
+    "publisher": "CGA, Ministry of Finance, Government of India",
+    "url": "https://cga.nic.in/",
+    "usedFor": "FY 2024-25 provisional actual spending split (to be pasted into app JSON when available)"
   },
   {
-    "id": "income_tax_rates_ay_2026_27",
-    "name": "Tax Rates",
+    "id": "income_tax_rates_ay_2025_26",
+    "name": "Tax Rates (AY 2025-26 / FY 2024-25)",
     "publisher": "Income Tax Department",
     "url": "https://incometaxindia.gov.in/Charts%20%20Tables/Tax%20rates.htm",
-    "usedFor": "New-regime slabs, rebate, surcharge, and cess"
+    "usedFor": "New-regime slabs, Section 87A rebate, surcharge, and cess"
   },
   {
     "id": "pm_kisan",

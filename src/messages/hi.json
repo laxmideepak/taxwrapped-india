@@ -1,6 +1,6 @@
 {
-  "welcomeTitle": "FY 2025-26 में आपका टैक्स कहां गया?",
-  "welcomeSubtitle": "अपनी salary के जरिए Union Budget देखें।",
+  "welcomeTitle": "FY 2024-25 में आपका टैक्स कहां गया?",
+  "welcomeSubtitle": "Union खर्च को अपनी salary के जरिए देखें — असली अनुपात जोड़ने पर CGA के प्राविधिक वास्तविक आंकड़े।",
   "start": "शुरू करें",
   "newRegimeOnly": "अभी सिर्फ new regime — old regime जल्द आएगा।",
   "trust": "हम आपकी income store नहीं करते। calculation आपके browser में होती है।",
@@ -16,5 +16,5 @@
   "copyLink": "Copy link",
   "whatsapp": "WhatsApp",
   "x": "X",
-  "estimated": "Budget Estimates पर आधारित estimate. सिर्फ income tax; GST और indirect taxes अलग हैं।"
+  "actualsNote": "सिर्फ income tax, FY 2024-25 / AY 2025-26 नया रिजीम। खर्च बंटवारा CGA कार्यात्मक वास्तविक आंकड़ों पर जब उपलब्ध हों; GST और अप्रत्यक्ष कर अलग हैं।"
 }

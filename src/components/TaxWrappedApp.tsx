@@ -2,11 +2,12 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import budget from "@/data/budget-2026-27.json";
+import { useEffect, useMemo, useState } from "react";
+import cga from "@/data/cga-actuals-2024-25.json";
+import ministries from "@/data/ministries-2024-25.json";
 import en from "@/messages/en.json";
 import hi from "@/messages/hi.json";
-import { allocateTax } from "@/lib/allocation";
+import { allocateMinistryTax, allocateTax } from "@/lib/allocation";
 import { formatINR, type Locale } from "@/lib/format";
 import { createStoryCards } from "@/lib/story";
 import { calculateNewRegimeTax, roundToShareBucket } from "@/lib/tax";
@@ -22,7 +23,15 @@ export function TaxWrappedApp({ initialLocale }: TaxWrappedAppProps) {
   const [useExactTax, setUseExactTax] = useState(false);
   const [exactTax, setExactTax] = useState("");
   const [revealed, setRevealed] = useState(false);
+  const [shareOrigin, setShareOrigin] = useState("");
+  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">(
+    "idle",
+  );
   const copy = locale === "hi" ? hi : en;
+
+  useEffect(() => {
+    setShareOrigin(window.location.origin);
+  }, []);
 
   const taxResult = useMemo(() => {
     const salaryNumber = Number(salary);
@@ -44,18 +53,52 @@ export function TaxWrappedApp({ initialLocale }: TaxWrappedAppProps) {
     if (!taxResult) {
       return null;
     }
-    return allocateTax(taxResult.totalTax, budget);
+    return allocateTax(taxResult.totalTax, cga);
+  }, [taxResult]);
+
+  const ministryAllocation = useMemo(() => {
+    if (!taxResult) {
+      return null;
+    }
+    return allocateMinistryTax(taxResult.totalTax, ministries);
   }, [taxResult]);
 
   const cards = useMemo(() => {
-    if (!taxResult || !allocation) {
+    if (!taxResult || !allocation || !ministryAllocation) {
       return [];
     }
-    return createStoryCards(taxResult, allocation, locale);
-  }, [allocation, locale, taxResult]);
+    return createStoryCards(taxResult, allocation, ministryAllocation, locale);
+  }, [allocation, locale, ministryAllocation, taxResult]);
 
   const taxBucket = roundToShareBucket(taxResult?.totalTax ?? 0);
-  const sharePath = `/api/share-card?locale=${locale}&variant=story&taxBucket=${taxBucket}&top=${allocation?.topSpendingHead.id ?? "states_share"}`;
+  const sharePath = `/api/share-card?locale=${locale}&variant=story&taxBucket=${taxBucket}&top=${ministryAllocation?.topMinistry.id ?? "defence"}`;
+  const fullShareUrl = shareOrigin ? `${shareOrigin}${sharePath}` : "";
+
+  async function copyShareLink() {
+    if (!fullShareUrl) {
+      return;
+    }
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(fullShareUrl);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = fullShareUrl;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+      setCopyStatus("copied");
+      window.setTimeout(() => setCopyStatus("idle"), 2000);
+    } catch {
+      setCopyStatus("failed");
+      window.setTimeout(() => setCopyStatus("idle"), 2000);
+    }
+  }
 
   function reset() {
     setStarted(false);
@@ -72,7 +115,7 @@ export function TaxWrappedApp({ initialLocale }: TaxWrappedAppProps) {
           <Link className="text-sm font-semibold tracking-[0.18em]" href="/">
             TAX WRAPPED INDIA
           </Link>
-          <nav className="flex items-center gap-3 text-sm">
+          <nav className="flex flex-wrap items-center justify-end gap-2 text-sm sm:gap-3">
             <button
               className="rounded-full border border-black/20 px-3 py-1 transition hover:bg-black hover:text-white"
               onClick={() => setLocale(locale === "en" ? "hi" : "en")}
@@ -80,10 +123,10 @@ export function TaxWrappedApp({ initialLocale }: TaxWrappedAppProps) {
             >
               {locale === "en" ? "हिंदी" : "English"}
             </button>
-            <Link className="hidden sm:inline" href="/methodology">
+            <Link className="whitespace-nowrap" href="/methodology">
               {copy.methodology}
             </Link>
-            <Link className="hidden sm:inline" href="/privacy">
+            <Link className="whitespace-nowrap" href="/privacy">
               {copy.privacy}
             </Link>
           </nav>
@@ -127,19 +170,13 @@ export function TaxWrappedApp({ initialLocale }: TaxWrappedAppProps) {
               <div className="absolute inset-x-8 top-8 h-28 rounded-3xl bg-[#ffe9a6]" />
               <div className="absolute bottom-8 left-8 right-8 rounded-3xl bg-[#14120f] p-6 text-white">
                 <p className="text-sm uppercase tracking-[0.2em] text-white/60">
-                  FY 2025-26
+                  FY 2024-25
                 </p>
-                <p className="mt-5 text-5xl font-black">₹</p>
-                <div className="mt-6 grid grid-cols-4 gap-2">
-                  {[22, 20, 17, 16].map((value) => (
-                    <div
-                      className="rounded-xl bg-white/10 p-3 text-center text-sm font-bold"
-                      key={value}
-                    >
-                      {value}%
-                    </div>
-                  ))}
-                </div>
+                <p className="mt-4 text-lg leading-relaxed text-white/80">
+                  {locale === "hi"
+                    ? "CGA वास्तविक खर्च के सात कार्यात्मक सिरे।"
+                    : "Seven CGA functional heads from actual spending."}
+                </p>
               </div>
             </div>
           </motion.section>
@@ -210,7 +247,7 @@ export function TaxWrappedApp({ initialLocale }: TaxWrappedAppProps) {
                   {copy.reveal}
                 </button>
                 <p className="mt-4 text-xs leading-5 text-black/55">
-                  {copy.estimated}
+                  {copy.actualsNote}
                 </p>
               </form>
 
@@ -221,12 +258,12 @@ export function TaxWrappedApp({ initialLocale }: TaxWrappedAppProps) {
                   <>
                     <section className="rounded-3xl bg-[#14120f] p-6 text-white shadow-xl">
                       <p className="text-sm uppercase tracking-[0.18em] text-white/50">
-                        FY 2025-26 / AY 2026-27
+                        FY 2024-25 / AY 2025-26
                       </p>
                       <h2 className="mt-4 text-4xl font-black">
                         {formatINR(taxResult?.totalTax ?? 0, locale)}
                       </h2>
-                      <p className="mt-3 text-white/70">{copy.estimated}</p>
+                      <p className="mt-3 text-white/70">{copy.actualsNote}</p>
                     </section>
                     {cards.map((card, index) => (
                       <motion.article
@@ -263,18 +300,42 @@ export function TaxWrappedApp({ initialLocale }: TaxWrappedAppProps) {
                         <a className="share-button" href={sharePath}>
                           {copy.download}
                         </a>
-                        <button className="share-button" type="button">
-                          {copy.copyLink}
+                        <button
+                          className="share-button"
+                          onClick={() => void copyShareLink()}
+                          type="button"
+                        >
+                          {copyStatus === "copied"
+                            ? locale === "hi"
+                              ? "कॉपी हो गया"
+                              : "Copied"
+                            : copyStatus === "failed"
+                              ? locale === "hi"
+                                ? "फेल"
+                                : "Failed"
+                              : copy.copyLink}
                         </button>
                         <a
                           className="share-button"
-                          href={`https://wa.me/?text=${encodeURIComponent("I saw my Tax Wrapped: " + sharePath)}`}
+                          href={
+                            fullShareUrl
+                              ? `https://wa.me/?text=${encodeURIComponent(`Tax Wrapped: ${fullShareUrl}`)}`
+                              : "#"
+                          }
+                          rel="noreferrer"
+                          target="_blank"
                         >
                           {copy.whatsapp}
                         </a>
                         <a
                           className="share-button"
-                          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent("I saw my Tax Wrapped")}&url=${encodeURIComponent(sharePath)}`}
+                          href={
+                            fullShareUrl
+                              ? `https://twitter.com/intent/tweet?text=${encodeURIComponent("I saw my Tax Wrapped")}&url=${encodeURIComponent(fullShareUrl)}`
+                              : "#"
+                          }
+                          rel="noreferrer"
+                          target="_blank"
                         >
                           {copy.x}
                         </a>

@@ -1,0 +1,70 @@
+{
+  "fiscalYear": "2024-25",
+  "basis": "TODO: Paste ministry-wise FY 2024-25 actuals from CGA / approved sources. All ratios are 0 for now. Defence is listed last so the remainder rule surfaces it as top ministry until real ratios are supplied — not for publication.",
+  "sourceId": "ministries_placeholder",
+  "ministries": [
+    {
+      "id": "road_transport_highways",
+      "labelEn": "Road Transport & Highways",
+      "labelHi": "सड़क परिवहन और राजमार्ग",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    },
+    {
+      "id": "railways",
+      "labelEn": "Railways",
+      "labelHi": "रेलवे",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    },
+    {
+      "id": "home_affairs",
+      "labelEn": "Home Affairs",
+      "labelHi": "गृह मंत्रालय",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    },
+    {
+      "id": "consumer_affairs_food_pd",
+      "labelEn": "Consumer Affairs, Food & PD",
+      "labelHi": "उपभोक्ता कार्य, खाद्य एवं सार्वजनिक वितरण",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    },
+    {
+      "id": "rural_development",
+      "labelEn": "Rural Development",
+      "labelHi": "ग्रामीण विकास",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    },
+    {
+      "id": "agriculture_farmers_welfare",
+      "labelEn": "Agriculture & Farmers Welfare",
+      "labelHi": "कृषि एवं किसान कल्याण",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    },
+    {
+      "id": "health_family_welfare",
+      "labelEn": "Health & Family Welfare",
+      "labelHi": "स्वास्थ्य एवं परिवार कल्याण",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    },
+    {
+      "id": "education",
+      "labelEn": "Education",
+      "labelHi": "शिक्षा",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    },
+    {
+      "id": "defence",
+      "labelEn": "Defence",
+      "labelHi": "रक्षा",
+      "ratio": 0,
+      "sourceId": "cga_todo"
+    }
+  ]
+}
