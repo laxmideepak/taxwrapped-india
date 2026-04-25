@@ -1,0 +1,20 @@
+{
+  "welcomeTitle": "FY 2025-26 में आपका टैक्स कहां गया?",
+  "welcomeSubtitle": "अपनी salary के जरिए Union Budget देखें।",
+  "start": "शुरू करें",
+  "newRegimeOnly": "अभी सिर्फ new regime — old regime जल्द आएगा।",
+  "trust": "हम आपकी income store नहीं करते। calculation आपके browser में होती है।",
+  "salaryLabel": "वार्षिक gross salary",
+  "salaryHint": "CTC या in-hand estimate. चाहें तो exact tax डालें।",
+  "exactTaxLabel": "मैं Form 16 से exact tax डालूंगा",
+  "exactTaxInput": "भरा गया exact income tax",
+  "reveal": "मेरा wrap दिखाएं",
+  "methodology": "Methodology",
+  "privacy": "Privacy",
+  "wrapFriend": "दोस्त का wrap बनाएं",
+  "download": "Download",
+  "copyLink": "Copy link",
+  "whatsapp": "WhatsApp",
+  "x": "X",
+  "estimated": "Budget Estimates पर आधारित estimate. सिर्फ income tax; GST और indirect taxes अलग हैं।"
+}

@@ -1,0 +1,68 @@
+[
+  {
+    "schemeId": "pm_kisan",
+    "schemeName": "PM-KISAN",
+    "rupeesPerUnit": 6000,
+    "unitLabel": {
+      "en": "farmer annual transfers",
+      "hi": "किसान वार्षिक ट्रांसफर"
+    },
+    "sourceId": "pm_kisan",
+    "lastVerified": "2026-04-24"
+  },
+  {
+    "schemeId": "pm_poshan",
+    "schemeName": "PM POSHAN",
+    "rupeesPerUnit": 8,
+    "unitLabel": {
+      "en": "school meals",
+      "hi": "स्कूल भोजन"
+    },
+    "sourceId": "pm_poshan",
+    "lastVerified": "2026-04-24"
+  },
+  {
+    "schemeId": "ayushman_bharat_pm_jay",
+    "schemeName": "Ayushman Bharat PM-JAY",
+    "rupeesPerUnit": 1500,
+    "unitLabel": {
+      "en": "family-cover days",
+      "hi": "परिवार स्वास्थ्य-कवर दिन"
+    },
+    "sourceId": "pm_jay",
+    "lastVerified": "2026-04-24"
+  },
+  {
+    "schemeId": "mgnrega_vb_gramg",
+    "schemeName": "MGNREGA / VB-GRAMG",
+    "rupeesPerUnit": 250,
+    "unitLabel": {
+      "en": "person-days of work",
+      "hi": "रोजगार व्यक्ति-दिन"
+    },
+    "sourceId": "mgnrega",
+    "lastVerified": "2026-04-24"
+  },
+  {
+    "schemeId": "national_highways",
+    "schemeName": "National Highways",
+    "rupeesPerUnit": 2000000,
+    "unitLabel": {
+      "en": "metres of highway",
+      "hi": "मीटर राष्ट्रीय राजमार्ग"
+    },
+    "sourceId": "morth",
+    "lastVerified": "2026-04-24"
+  },
+  {
+    "schemeId": "food_subsidy",
+    "schemeName": "Food Subsidy",
+    "rupeesPerUnit": 30,
+    "unitLabel": {
+      "en": "kg of food-grain support",
+      "hi": "किलो खाद्यान्न सहायता"
+    },
+    "sourceId": "food_subsidy",
+    "lastVerified": "2026-04-24"
+  }
+]

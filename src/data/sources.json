@@ -1,0 +1,58 @@
+[
+  {
+    "id": "budget_at_a_glance_2026_27",
+    "name": "Union Budget at a Glance 2026-2027",
+    "publisher": "Ministry of Finance, Government of India",
+    "url": "https://www.indiabudget.gov.in/doc/Budget_at_Glance/budget_at_a_glance.pdf",
+    "usedFor": "Rupee Goes To spending split and Budget Estimate basis"
+  },
+  {
+    "id": "income_tax_rates_ay_2026_27",
+    "name": "Tax Rates",
+    "publisher": "Income Tax Department",
+    "url": "https://incometaxindia.gov.in/Charts%20%20Tables/Tax%20rates.htm",
+    "usedFor": "New-regime slabs, rebate, surcharge, and cess"
+  },
+  {
+    "id": "pm_kisan",
+    "name": "PM-KISAN Scheme Guidelines",
+    "publisher": "Government of India",
+    "url": "https://pmkisan.gov.in/",
+    "usedFor": "₹6,000 annual farmer support unit"
+  },
+  {
+    "id": "pm_poshan",
+    "name": "PM POSHAN Scheme",
+    "publisher": "Ministry of Education",
+    "url": "https://pmposhan.education.gov.in/",
+    "usedFor": "Indicative school meal unit cost"
+  },
+  {
+    "id": "pm_jay",
+    "name": "Ayushman Bharat PM-JAY Dashboard",
+    "publisher": "National Health Authority",
+    "url": "https://dashboard.pmjay.gov.in/",
+    "usedFor": "Indicative health-cover unit conversion"
+  },
+  {
+    "id": "mgnrega",
+    "name": "MGNREGA Public Data Portal",
+    "publisher": "Ministry of Rural Development",
+    "url": "https://nrega.nic.in/",
+    "usedFor": "Indicative person-day conversion"
+  },
+  {
+    "id": "morth",
+    "name": "MoRTH Annual Report",
+    "publisher": "Ministry of Road Transport and Highways",
+    "url": "https://morth.nic.in/annual-report",
+    "usedFor": "Indicative national highway cost conversion"
+  },
+  {
+    "id": "food_subsidy",
+    "name": "Food Subsidy Budget Documents",
+    "publisher": "Ministry of Consumer Affairs, Food and Public Distribution",
+    "url": "https://dfpd.gov.in/",
+    "usedFor": "Indicative food subsidy unit conversion"
+  }
+]

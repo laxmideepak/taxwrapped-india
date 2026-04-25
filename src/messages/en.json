@@ -1,0 +1,20 @@
+{
+  "welcomeTitle": "Where did your tax go in FY 2025-26?",
+  "welcomeSubtitle": "See the Union Budget through your salary.",
+  "start": "Start",
+  "newRegimeOnly": "New regime only for now — old regime coming soon.",
+  "trust": "We don't store your income. Calculations happen in your browser.",
+  "salaryLabel": "Annual gross salary",
+  "salaryHint": "CTC or in-hand estimate. You can enter exact tax instead.",
+  "exactTaxLabel": "I will enter my exact tax from Form 16",
+  "exactTaxInput": "Exact income tax paid",
+  "reveal": "Reveal my wrap",
+  "methodology": "Methodology",
+  "privacy": "Privacy",
+  "wrapFriend": "Wrap a friend",
+  "download": "Download",
+  "copyLink": "Copy link",
+  "whatsapp": "WhatsApp",
+  "x": "X",
+  "estimated": "Estimated from Budget Estimates. Income tax only; GST and other indirect taxes are separate."
+}

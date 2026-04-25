@@ -1,0 +1,63 @@
+{
+  "fiscalYear": "2026-27",
+  "basis": "Union Budget BE 2026-27, Budget at a Glance Rupee Goes To split",
+  "sourceId": "budget_at_a_glance_2026_27",
+  "topLevelHeads": [
+    {
+      "id": "states_share",
+      "labelEn": "States' share of taxes and duties",
+      "labelHi": "राज्यों का कर हिस्सा",
+      "ratio": 0.22,
+      "sourceId": "budget_at_a_glance_2026_27"
+    },
+    {
+      "id": "interest_payments",
+      "labelEn": "Interest payments",
+      "labelHi": "ब्याज भुगतान",
+      "ratio": 0.2,
+      "sourceId": "budget_at_a_glance_2026_27"
+    },
+    {
+      "id": "centrally_sponsored_schemes",
+      "labelEn": "Centrally Sponsored Schemes",
+      "labelHi": "केंद्र प्रायोजित योजनाएं",
+      "ratio": 0.17,
+      "sourceId": "budget_at_a_glance_2026_27"
+    },
+    {
+      "id": "central_sector_schemes",
+      "labelEn": "Central Sector Schemes",
+      "labelHi": "केंद्रीय क्षेत्र योजनाएं",
+      "ratio": 0.16,
+      "sourceId": "budget_at_a_glance_2026_27"
+    },
+    {
+      "id": "finance_commission_transfers",
+      "labelEn": "Finance Commission and other transfers",
+      "labelHi": "वित्त आयोग और अन्य हस्तांतरण",
+      "ratio": 0.08,
+      "sourceId": "budget_at_a_glance_2026_27"
+    },
+    {
+      "id": "defence",
+      "labelEn": "Defence",
+      "labelHi": "रक्षा",
+      "ratio": 0.08,
+      "sourceId": "budget_at_a_glance_2026_27"
+    },
+    {
+      "id": "subsidies",
+      "labelEn": "Subsidies",
+      "labelHi": "सब्सिडी",
+      "ratio": 0.06,
+      "sourceId": "budget_at_a_glance_2026_27"
+    },
+    {
+      "id": "pensions",
+      "labelEn": "Pensions",
+      "labelHi": "पेंशन",
+      "ratio": 0.03,
+      "sourceId": "budget_at_a_glance_2026_27"
+    }
+  ]
+}
