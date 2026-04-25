@@ -33,6 +33,7 @@ export type TaxResult = {
 const STANDARD_DEDUCTION = 75_000;
 const CESS_RATE = 0.04;
 const REBATE_TAXABLE_LIMIT = 700_000;
+/** Section 87A: rebate is up to ₹25,000 (cap applies even if slabs ever imply higher base tax). */
 const MAX_REBATE = 25_000;
 const SHARE_BUCKET = 5_000;
 

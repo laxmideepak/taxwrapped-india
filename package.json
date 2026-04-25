@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "verify:data": "node scripts/verify-allocation-datasets.mjs",
+    "prebuild": "npm run verify:data",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
