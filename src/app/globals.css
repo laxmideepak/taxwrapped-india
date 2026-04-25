@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8f3e8;
-  --foreground: #14120f;
+  --background: #000000;
+  --foreground: #0a0a0a;
+  --wrapped-cream: #f2f2f0;
+  --wrapped-terracotta: #c24e3a;
+  --wrapped-blue: #1e4fd6;
 }
 
 @theme inline {
@@ -15,7 +18,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
 button,
@@ -26,7 +29,7 @@ input {
 
 .share-button {
   align-items: center;
-  background: #14120f;
+  background: #0a0a0a;
   border-radius: 999px;
   color: white;
   display: inline-flex;
@@ -36,6 +39,31 @@ input {
   min-height: 2.75rem;
   padding: 0 1rem;
   text-align: center;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.share-button:hover {
+  background: #1a1a1a;
+  transform: translateY(-1px);
+}
+
+.wrapped-cta {
+  background: var(--wrapped-terracotta);
+  border-radius: 0.6rem;
+  color: #fff;
+  display: flex;
+  font-size: 1.05rem;
+  font-weight: 800;
+  justify-content: center;
+  min-height: 3.5rem;
+  width: 100%;
+  box-shadow: 0 1px 0 #0006;
+  transition: background 0.2s ease, transform 0.12s ease;
+}
+
+.wrapped-cta:hover:enabled {
+  background: #a84230;
+  transform: scale(0.99);
 }
 
 .text-balance {

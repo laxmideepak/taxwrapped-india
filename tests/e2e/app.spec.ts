@@ -6,13 +6,13 @@ test("generates an English tax wrap without sending salary to the share route", 
   await page.goto("/");
   await expect(
     page.getByRole("heading", {
-      name: /where did your tax go in fy 2024-25/i,
+      name: /tax wrapped/i,
     }),
   ).toBeVisible();
 
   await page.getByRole("button", { name: /start/i }).click();
-  await page.getByLabel(/annual gross salary/i).fill("1800000");
-  await page.getByRole("button", { name: /reveal/i }).click();
+  await page.getByLabel(/gross salary/i).fill("1800000");
+  await page.getByRole("button", { name: /^next$/i }).click();
 
   await expect(page.getByText("₹2,15,800").first()).toBeVisible();
   await expect(page.getByText(/grants to states/i)).toBeVisible();
@@ -27,7 +27,7 @@ test("generates an English tax wrap without sending salary to the share route", 
 test("switches to Hindi welcome copy", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: /हिंदी/i }).click();
-  await expect(page.getByText(/आपका टैक्स कहां गया/i)).toBeVisible();
+  await expect(page.getByText("भारत")).toBeVisible();
 });
 
 test("methodology and privacy pages explain CGA actuals", async ({ page }) => {

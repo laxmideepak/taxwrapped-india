@@ -1,34 +1,36 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { TaxWrappedApp } from "@/components/TaxWrappedApp";
 
 describe("TaxWrappedApp", () => {
-  it("starts with the new-regime-only privacy posture", () => {
+  it("starts with the new-regime-only privacy posture", async () => {
     render(<TaxWrappedApp initialLocale="en" />);
 
     expect(
       screen.getByRole("heading", {
-        name: /where did your tax go in fy 2024-25/i,
+        name: /tax wrapped/i,
       }),
     ).toBeInTheDocument();
     expect(screen.getByText(/new regime only for now/i)).toBeInTheDocument();
-    expect(
-      screen.getByText(/calculations happen in your browser/i),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByText(/nothing is stored on our servers/i),
+      ).toBeInTheDocument();
+    });
   });
 
   it("calculates a wrap and renders all mandatory cards", async () => {
     const user = userEvent.setup();
     render(<TaxWrappedApp initialLocale="en" />);
 
-    await user.click(screen.getByRole("button", { name: /start/i }));
-    const salaryInput = await screen.findByLabelText(/annual gross salary/i);
-    await user.type(
-      salaryInput,
-      "1800000",
-    );
-    await user.click(screen.getByRole("button", { name: /reveal/i }));
+    await user.click(screen.getByRole("button", { name: /^start$/i }));
+    const salaryInput = await screen.findByLabelText(/gross salary/i);
+    fireEvent.change(salaryInput, { target: { value: "1800000" } });
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: /^next$/i })).not.toBeDisabled();
+    });
+    await user.click(screen.getByRole("button", { name: /^next$/i }));
 
     expect(screen.getAllByText("₹2,15,800").length).toBeGreaterThan(0);
     expect(screen.getByText(/grants to states/i)).toBeInTheDocument();
@@ -42,7 +44,8 @@ describe("TaxWrappedApp", () => {
     render(<TaxWrappedApp initialLocale="en" />);
 
     await user.click(screen.getByRole("button", { name: /हिंदी/i }));
-
-    expect(screen.getByText(/आपका टैक्स कहां गया/i)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("भारत")).toBeInTheDocument();
+    });
   });
 });

@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import cga from "@/data/cga-actuals-2024-25.json";
@@ -11,10 +11,23 @@ import { allocateMinistryTax, allocateTax } from "@/lib/allocation";
 import { formatINR, type Locale } from "@/lib/format";
 import { createStoryCards } from "@/lib/story";
 import { calculateNewRegimeTax, roundToShareBucket } from "@/lib/tax";
+import {
+  WavyBottom,
+  WavyTop,
+  WrappedShell,
+  YearMosaicFy,
+} from "@/components/WrappedChrome";
 
 type TaxWrappedAppProps = {
   initialLocale: Locale;
 };
+
+const cardSurfaces = [
+  "bg-white/95 border border-black/8 shadow-sm",
+  "bg-[#e8f0ff] border border-[#1e4fd6]/15",
+  "bg-[#fff5f0] border border-[#c24e3a]/12",
+  "bg-[#f7f2ea] border border-black/6",
+] as const;
 
 export function TaxWrappedApp({ initialLocale }: TaxWrappedAppProps) {
   const [locale, setLocale] = useState<Locale>(initialLocale);
@@ -109,269 +122,304 @@ export function TaxWrappedApp({ initialLocale }: TaxWrappedAppProps) {
   }
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#f8f3e8] text-[#14120f]">
-      <div className="fixed left-0 right-0 top-0 z-20 border-b border-black/10 bg-[#f8f3e8]/90 px-4 py-3 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-3">
-          <Link className="text-sm font-semibold tracking-[0.18em]" href="/">
-            TAX WRAPPED INDIA
-          </Link>
-          <nav className="flex flex-wrap items-center justify-end gap-2 text-sm sm:gap-3">
-            <button
-              className="rounded-full border border-black/20 px-3 py-1 transition hover:bg-black hover:text-white"
-              onClick={() => setLocale(locale === "en" ? "hi" : "en")}
-              type="button"
+    <main className="min-h-dvh w-full">
+      <div className="mx-auto flex min-h-dvh w-full max-w-[28rem] flex-col sm:min-h-0 sm:max-h-[min(100dvh,58rem)] sm:justify-center sm:px-0 sm:py-4">
+        <div
+          className="relative flex min-h-dvh flex-1 flex-col overflow-hidden bg-[#f2f2f0] text-[#0a0a0a] sm:min-h-0 sm:max-h-[min(100dvh,58rem)] sm:rounded-[2.2rem] sm:shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_32px_100px_rgba(0,0,0,0.55)]"
+        >
+          <header className="relative z-20 flex items-center justify-between border-b border-black/6 bg-[#f2f2f0]/90 px-4 py-3 backdrop-blur-sm">
+            <Link
+              className="text-[0.7rem] font-extrabold tracking-[0.2em] text-[#0a0a0a]/85"
+              href="/"
             >
-              {locale === "en" ? "हिंदी" : "English"}
-            </button>
-            <Link className="whitespace-nowrap" href="/methodology">
-              {copy.methodology}
+              TAX WRAPPED
             </Link>
-            <Link className="whitespace-nowrap" href="/privacy">
-              {copy.privacy}
-            </Link>
-          </nav>
-        </div>
-      </div>
-
-      <AnimatePresence mode="wait">
-        {!started ? (
-          <motion.section
-            animate={{ opacity: 1, y: 0 }}
-            className="mx-auto grid min-h-screen max-w-5xl content-center gap-8 px-5 pt-20 md:grid-cols-[1.05fr_0.95fr]"
-            exit={{ opacity: 0, y: -16 }}
-            initial={{ opacity: 0, y: 16 }}
-            key="welcome"
-          >
-            <div className="space-y-7">
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#8d2f20]">
-                Kar Kahan Gaya?
-              </p>
-              <h1 className="text-balance text-5xl font-black leading-[0.95] md:text-7xl">
-                {copy.welcomeTitle}
-              </h1>
-              <p className="max-w-xl text-xl leading-8 text-black/70">
-                {copy.welcomeSubtitle}
-              </p>
-              <div className="space-y-3">
-                <button
-                  className="inline-flex h-14 items-center rounded-full bg-[#14120f] px-8 text-base font-bold text-white shadow-lg shadow-black/20 transition hover:translate-y-[-1px]"
-                  onClick={() => setStarted(true)}
-                  type="button"
-                >
-                  {copy.start} →
-                </button>
-                <p className="text-sm font-semibold text-[#8d2f20]">
-                  {copy.newRegimeOnly}
-                </p>
-                <p className="text-sm text-black/60">{copy.trust}</p>
-              </div>
-            </div>
-            <div className="relative min-h-[420px] overflow-hidden rounded-[2rem] border border-black/10 bg-[#f06f38] p-6 shadow-2xl shadow-[#8d2f20]/20">
-              <div className="absolute inset-x-8 top-8 h-28 rounded-3xl bg-[#ffe9a6]" />
-              <div className="absolute bottom-8 left-8 right-8 rounded-3xl bg-[#14120f] p-6 text-white">
-                <p className="text-sm uppercase tracking-[0.2em] text-white/60">
-                  FY 2024-25
-                </p>
-                <p className="mt-4 text-lg leading-relaxed text-white/80">
-                  {locale === "hi"
-                    ? "CGA वास्तविक खर्च के सात कार्यात्मक सिरे।"
-                    : "Seven CGA functional heads from actual spending."}
-                </p>
-              </div>
-            </div>
-          </motion.section>
-        ) : (
-          <motion.section
-            animate={{ opacity: 1 }}
-            className="mx-auto min-h-screen max-w-5xl px-5 pb-10 pt-24"
-            exit={{ opacity: 0 }}
-            initial={{ opacity: 0 }}
-            key="app"
-          >
-            <div className="grid gap-6 lg:grid-cols-[360px_1fr]">
-              <form
-                className="h-fit rounded-3xl border border-black/10 bg-white p-5 shadow-xl shadow-black/5"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  if (taxResult) {
-                    setRevealed(true);
-                  }
-                }}
+            <nav className="flex flex-wrap items-center justify-end gap-2 text-[0.7rem] font-bold text-[#0a0a0a]/60">
+              <button
+                className="rounded-full border border-black/15 bg-white/70 px-2.5 py-1 transition hover:border-black/25 hover:text-[#0a0a0a]"
+                onClick={() => setLocale(locale === "en" ? "hi" : "en")}
+                type="button"
               >
-                <label className="block text-sm font-bold" htmlFor="salary">
-                  {copy.salaryLabel}
-                </label>
-                <input
-                  className="mt-2 h-14 w-full rounded-2xl border border-black/15 bg-[#fbf7ef] px-4 text-xl font-bold outline-none focus:border-[#8d2f20]"
-                  id="salary"
-                  inputMode="numeric"
-                  onChange={(event) => setSalary(event.target.value)}
-                  placeholder="1800000"
-                  type="number"
-                  value={salary}
-                />
-                <p className="mt-2 text-sm text-black/60">{copy.salaryHint}</p>
+                {locale === "en" ? "हिंदी" : "EN"}
+              </button>
+              <Link className="whitespace-nowrap" href="/methodology">
+                {copy.methodology}
+              </Link>
+              <Link className="whitespace-nowrap" href="/privacy">
+                {copy.privacy}
+              </Link>
+            </nav>
+          </header>
 
-                <label className="mt-5 flex items-center gap-3 text-sm font-semibold">
-                  <input
-                    checked={useExactTax}
-                    className="h-5 w-5 accent-[#8d2f20]"
-                    onChange={(event) => setUseExactTax(event.target.checked)}
-                    type="checkbox"
-                  />
-                  {copy.exactTaxLabel}
-                </label>
-
-                {useExactTax ? (
-                  <div className="mt-4">
-                    <label className="block text-sm font-bold" htmlFor="exactTax">
-                      {copy.exactTaxInput}
-                    </label>
-                    <input
-                      className="mt-2 h-12 w-full rounded-2xl border border-black/15 bg-[#fbf7ef] px-4 text-lg font-bold outline-none focus:border-[#8d2f20]"
-                      id="exactTax"
-                      inputMode="numeric"
-                      onChange={(event) => setExactTax(event.target.value)}
-                      placeholder="150800"
-                      type="number"
-                      value={exactTax}
-                    />
-                  </div>
-                ) : null}
-
-                <button
-                  className="mt-6 h-12 w-full rounded-full bg-[#8d2f20] font-bold text-white transition hover:bg-[#14120f] disabled:cursor-not-allowed disabled:opacity-50"
-                  disabled={!taxResult}
-                  type="submit"
-                >
-                  {copy.reveal}
-                </button>
-                <p className="mt-4 text-xs leading-5 text-black/55">
-                  {copy.actualsNote}
-                </p>
-              </form>
-
-              <div className="snap-y space-y-4 overflow-y-auto lg:max-h-[calc(100vh-7rem)]">
-                {!revealed ? (
-                  <EmptyPreview locale={locale} />
-                ) : (
-                  <>
-                    <section className="rounded-3xl bg-[#14120f] p-6 text-white shadow-xl">
-                      <p className="text-sm uppercase tracking-[0.18em] text-white/50">
-                        FY 2024-25 / AY 2025-26
-                      </p>
-                      <h2 className="mt-4 text-4xl font-black">
-                        {formatINR(taxResult?.totalTax ?? 0, locale)}
-                      </h2>
-                      <p className="mt-3 text-white/70">{copy.actualsNote}</p>
-                    </section>
-                    {cards.map((card, index) => (
-                      <motion.article
-                        className="snap-start rounded-3xl border border-black/10 bg-white p-6 shadow-lg shadow-black/5"
-                        animate={{ opacity: 1, y: 0 }}
-                        initial={{ opacity: 0, y: 16 }}
-                        key={card.id}
-                        transition={{ delay: index * 0.03 }}
+          {
+            !started ? (
+              <motion.div
+                animate={{ opacity: 1, y: 0 }}
+                className="flex min-h-0 flex-1 flex-col"
+                exit={{ opacity: 0, y: -12 }}
+                initial={{ opacity: 1, y: 0 }}
+                key="welcome"
+              >
+                <WrappedShell>
+                  <WavyTop />
+                  <div className="flex min-h-0 flex-1 flex-col px-6 pt-1">
+                    <div className="flex min-h-0 flex-1 flex-col justify-center py-4 text-center">
+                      <h1
+                        className="text-[2.1rem] font-extrabold leading-[0.95] tracking-tight text-[#0a0a0a] sm:text-5xl"
+                        style={{ fontFamily: "var(--font-wrapped, sans-serif)" }}
                       >
-                        <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#8d2f20]">
+                        {copy.welcomeTitle}
+                      </h1>
+                      <p className="mt-2 text-[0.7rem] font-extrabold tracking-[0.4em] text-[#0a0a0a]/45">
+                        {copy.welcomeKicker}
+                      </p>
+                      <p className="mt-5 text-balance text-sm leading-6 text-[#0a0a0a]/70 sm:text-base">
+                        {copy.welcomeSubtitle}
+                      </p>
+                      <div className="mt-7">
+                        <button
+                          className="wrapped-cta"
+                          onClick={() => setStarted(true)}
+                          type="button"
+                        >
+                          {copy.start}
+                        </button>
+                      </div>
+                      <p className="mt-3 text-center text-xs font-semibold text-[#c24e3a]">
+                        {copy.newRegimeOnly}
+                      </p>
+                      <p className="mt-1 text-center text-xs text-[#0a0a0a]/45">
+                        {copy.trust}
+                      </p>
+                    </div>
+                    <YearMosaicFy />
+                    <WavyBottom />
+                  </div>
+                </WrappedShell>
+              </motion.div>
+            ) : !revealed ? (
+              <motion.div
+                animate={{ opacity: 1, y: 0 }}
+                className="flex min-h-0 flex-1 flex-col"
+                exit={{ opacity: 0, y: -8 }}
+                initial={{ opacity: 1, y: 0 }}
+                key="income"
+              >
+                <WrappedShell>
+                  <WavyTop />
+                  <form
+                    className="flex min-h-0 flex-1 flex-col justify-between gap-4 px-6 py-2"
+                    onSubmit={(event) => {
+                      event.preventDefault();
+                      if (taxResult) {
+                        setRevealed(true);
+                      }
+                    }}
+                  >
+                    <div>
+                      <h1
+                        className="text-balance text-2xl font-extrabold leading-tight text-[#0a0a0a] sm:text-3xl"
+                        style={{ fontFamily: "var(--font-wrapped, sans-serif)" }}
+                      >
+                        {copy.earnQuestion}
+                      </h1>
+                      <p className="mt-1 text-sm text-[#0a0a0a]/50">
+                        AY 2025-26
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-bold uppercase tracking-wider text-[#0a0a0a]/45" htmlFor="salary">
+                        {copy.salaryLabel}
+                      </label>
+                      <div className="flex items-stretch overflow-hidden rounded-xl border-2 border-black/12 bg-white shadow-inner">
+                        <span className="flex items-center bg-black/[0.04] px-3 text-lg font-extrabold text-[#0a0a0a]/50">
+                          ₹
+                        </span>
+                        <input
+                          className="min-h-12 w-full min-w-0 border-0 bg-transparent px-2 text-xl font-extrabold text-[#0a0a0a] outline-none"
+                          id="salary"
+                          inputMode="numeric"
+                          onChange={(event) => setSalary(event.target.value)}
+                          placeholder="1800000"
+                          type="number"
+                          value={salary}
+                        />
+                      </div>
+                      <p className="text-xs text-[#0a0a0a]/45">{copy.salaryHint}</p>
+                    </div>
+
+                    <div>
+                      <label className="flex items-center gap-2 text-sm font-bold text-[#0a0a0a]/80">
+                        <input
+                          checked={useExactTax}
+                          className="h-4 w-4 rounded border-[#0a0a0a]/20 accent-[#c24e3a]"
+                          onChange={(event) => setUseExactTax(event.target.checked)}
+                          type="checkbox"
+                        />
+                        {copy.exactTaxLabel}
+                      </label>
+                      {useExactTax ? (
+                        <div className="mt-3">
+                          <label
+                            className="text-xs font-bold text-[#0a0a0a]/45"
+                            htmlFor="exactTax"
+                          >
+                            {copy.exactTaxInput}
+                          </label>
+                          <input
+                            className="mt-1 w-full min-h-11 rounded-xl border-2 border-black/12 bg-white px-3 text-lg font-extrabold outline-none focus:border-[#c24e3a]/50"
+                            id="exactTax"
+                            inputMode="numeric"
+                            onChange={(event) => setExactTax(event.target.value)}
+                            placeholder="215800"
+                            type="number"
+                            value={exactTax}
+                          />
+                        </div>
+                      ) : null}
+                    </div>
+
+                    <div>
+                      <button
+                        className="wrapped-cta disabled:cursor-not-allowed disabled:opacity-45"
+                        disabled={!taxResult}
+                        type="submit"
+                      >
+                        {copy.reveal}
+                      </button>
+                      <p className="mt-3 text-center text-xs leading-5 text-[#0a0a0a]/40">
+                        {copy.actualsNote}
+                      </p>
+                    </div>
+                    <WavyBottom />
+                  </form>
+                </WrappedShell>
+              </motion.div>
+            ) : (
+              <motion.div
+                animate={{ opacity: 1 }}
+                className="flex min-h-0 flex-1 flex-col overflow-y-auto"
+                initial={{ opacity: 1 }}
+                key="wrap"
+              >
+                <div className="space-y-4 px-3 pb-8 pt-2">
+                  <section className="rounded-3xl bg-[#0a0a0a] p-5 text-center text-white shadow-lg">
+                    <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-white/50">
+                      FY 2024-25 / AY 2025-26
+                    </p>
+                    <h2 className="mt-3 text-4xl font-extrabold leading-none tracking-tight sm:text-5xl">
+                      {formatINR(taxResult?.totalTax ?? 0, locale)}
+                    </h2>
+                    <p className="mt-2 text-xs text-white/55">{copy.actualsNote}</p>
+                    <button
+                      className="mt-3 text-xs font-bold text-white/60 underline decoration-white/30 underline-offset-2 hover:text-white"
+                      onClick={reset}
+                      type="button"
+                    >
+                      {copy.wrapFriend}
+                    </button>
+                  </section>
+
+                  {cards.map((card, index) => {
+                    const surface = cardSurfaces[index % cardSurfaces.length];
+                    return (
+                      <motion.article
+                        className={`min-h-[min(58dvh,28rem)] snap-start rounded-3xl p-6 sm:p-7 ${surface}`}
+                        animate={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 1, y: 0 }}
+                        key={card.id}
+                        transition={{ delay: index * 0.04 }}
+                      >
+                        <p className="text-[0.65rem] font-extrabold uppercase tracking-[0.22em] text-[#c24e3a]">
                           {card.eyebrow}
                         </p>
-                        <h2 className="mt-3 text-3xl font-black leading-tight">
+                        <h2
+                          className="mt-3 text-balance text-2xl font-extrabold leading-tight sm:text-3xl"
+                          style={{ fontFamily: "var(--font-wrapped, sans-serif)" }}
+                        >
                           {card.title}
                         </h2>
-                        <p className="mt-4 text-5xl font-black text-[#f06f38]">
+                        <p
+                          className="mt-4 text-4xl font-extrabold leading-none text-[#c24e3a] sm:text-5xl"
+                        >
                           {card.stat}
                         </p>
-                        <p className="mt-4 text-lg leading-8 text-black/70">
+                        <p className="mt-4 text-balance text-base leading-7 text-[#0a0a0a]/70">
                           {card.body}
                         </p>
                         {card.detail ? (
-                          <p className="mt-3 text-sm font-bold text-black/50">
+                          <p className="mt-2 text-sm font-bold text-[#0a0a0a]/45">
                             {card.detail}
                           </p>
                         ) : null}
                       </motion.article>
-                    ))}
-                    <section className="rounded-3xl bg-[#ffe9a6] p-6">
-                      <h2 className="text-2xl font-black">
-                        {locale === "hi" ? "शेयर करें" : "Share"}
-                      </h2>
-                      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
-                        <a className="share-button" href={sharePath}>
-                          {copy.download}
-                        </a>
-                        <button
-                          className="share-button"
-                          onClick={() => void copyShareLink()}
-                          type="button"
-                        >
-                          {copyStatus === "copied"
-                            ? locale === "hi"
-                              ? "कॉपी हो गया"
-                              : "Copied"
-                            : copyStatus === "failed"
-                              ? locale === "hi"
-                                ? "फेल"
-                                : "Failed"
-                              : copy.copyLink}
-                        </button>
-                        <a
-                          className="share-button"
-                          href={
-                            fullShareUrl
-                              ? `https://wa.me/?text=${encodeURIComponent(`Tax Wrapped: ${fullShareUrl}`)}`
-                              : "#"
-                          }
-                          rel="noreferrer"
-                          target="_blank"
-                        >
-                          {copy.whatsapp}
-                        </a>
-                        <a
-                          className="share-button"
-                          href={
-                            fullShareUrl
-                              ? `https://twitter.com/intent/tweet?text=${encodeURIComponent("I saw my Tax Wrapped")}&url=${encodeURIComponent(fullShareUrl)}`
-                              : "#"
-                          }
-                          rel="noreferrer"
-                          target="_blank"
-                        >
-                          {copy.x}
-                        </a>
-                        <button
-                          className="share-button"
-                          onClick={reset}
-                          type="button"
-                        >
-                          {copy.wrapFriend}
-                        </button>
-                      </div>
-                    </section>
-                  </>
-                )}
-              </div>
-            </div>
-          </motion.section>
-        )}
-      </AnimatePresence>
-    </main>
-  );
-}
+                    );
+                  })}
 
-function EmptyPreview({ locale }: { locale: Locale }) {
-  return (
-    <section className="grid min-h-[420px] place-items-center rounded-3xl border border-dashed border-black/20 bg-white/50 p-8 text-center">
-      <div>
-        <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#8d2f20]">
-          Browser-only
-        </p>
-        <h2 className="mt-3 text-3xl font-black">
-          {locale === "hi"
-            ? "Salary डालें और अपना wrap देखें।"
-            : "Enter salary to reveal your wrap."}
-        </h2>
+                  <section className="rounded-3xl border border-black/8 bg-gradient-to-b from-[#fff6d0] to-[#ffe0a6] p-5 shadow-sm">
+                    <h2
+                      className="text-lg font-extrabold"
+                      style={{ fontFamily: "var(--font-wrapped, sans-serif)" }}
+                    >
+                      {locale === "hi" ? "शेयर" : "Share"}
+                    </h2>
+                    <p className="mt-1 text-xs text-[#0a0a0a]/55">
+                      {copy.trust}
+                    </p>
+                    <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-5">
+                      <a className="share-button" href={sharePath}>
+                        {copy.download}
+                      </a>
+                      <button
+                        className="share-button"
+                        onClick={() => void copyShareLink()}
+                        type="button"
+                      >
+                        {copyStatus === "copied"
+                          ? locale === "hi"
+                            ? "कॉपी"
+                            : "Copied"
+                          : copyStatus === "failed"
+                            ? locale === "hi"
+                              ? "फेल"
+                              : "Failed"
+                            : copy.copyLink}
+                      </button>
+                      <a
+                        className="share-button"
+                        href={
+                          fullShareUrl
+                            ? `https://wa.me/?text=${encodeURIComponent(`Tax Wrapped India: ${fullShareUrl}`)}`
+                            : "#"
+                        }
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        {copy.whatsapp}
+                      </a>
+                      <a
+                        className="share-button"
+                        href={
+                          fullShareUrl
+                            ? `https://twitter.com/intent/tweet?text=${encodeURIComponent("My Tax Wrapped India")}&url=${encodeURIComponent(fullShareUrl)}`
+                            : "#"
+                        }
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        {copy.x}
+                      </a>
+                      <button className="share-button" onClick={reset} type="button">
+                        {copy.wrapFriend}
+                      </button>
+                    </div>
+                  </section>
+                </div>
+              </motion.div>
+            )
+          }
+        </div>
       </div>
-    </section>
+    </main>
   );
 }
