@@ -1,70 +1,70 @@
 {
   "fiscalYear": "2024-25",
-  "basis": "TODO: Paste ministry-wise FY 2024-25 actuals from CGA / approved sources. All ratios are 0 for now. Defence is listed last so the remainder rule surfaces it as top ministry until real ratios are supplied — not for publication.",
-  "sourceId": "ministries_placeholder",
+  "basis": "Illustrative **ministry** demand-on-budget style shares (major spend heads), normalized to sum to 1 for assigning your tax across ministries. Aligned in rough order of magnitude with Union Budget 2024-25; replace with CGA or finance ministry *actual* splits for publication. Defence is the largest head here; ordering follows allocation + rounding, with the last entry absorbing rounding remainder so totals still reconcile to your tax amount.",
+  "sourceId": "ministries_illustrative_2024_25",
   "ministries": [
+    {
+      "id": "defence",
+      "labelEn": "Defence",
+      "labelHi": "रक्षा",
+      "ratio": 0.22,
+      "sourceId": "union_budget_be_pattern"
+    },
     {
       "id": "road_transport_highways",
       "labelEn": "Road Transport & Highways",
       "labelHi": "सड़क परिवहन और राजमार्ग",
-      "ratio": 0,
-      "sourceId": "cga_todo"
+      "ratio": 0.11,
+      "sourceId": "union_budget_be_pattern"
     },
     {
       "id": "railways",
       "labelEn": "Railways",
       "labelHi": "रेलवे",
-      "ratio": 0,
-      "sourceId": "cga_todo"
+      "ratio": 0.1,
+      "sourceId": "union_budget_be_pattern"
     },
     {
       "id": "home_affairs",
       "labelEn": "Home Affairs",
       "labelHi": "गृह मंत्रालय",
-      "ratio": 0,
-      "sourceId": "cga_todo"
+      "ratio": 0.09,
+      "sourceId": "union_budget_be_pattern"
     },
     {
       "id": "consumer_affairs_food_pd",
       "labelEn": "Consumer Affairs, Food & PD",
       "labelHi": "उपभोक्ता कार्य, खाद्य एवं सार्वजनिक वितरण",
-      "ratio": 0,
-      "sourceId": "cga_todo"
+      "ratio": 0.11,
+      "sourceId": "union_budget_be_pattern"
     },
     {
       "id": "rural_development",
       "labelEn": "Rural Development",
       "labelHi": "ग्रामीण विकास",
-      "ratio": 0,
-      "sourceId": "cga_todo"
+      "ratio": 0.09,
+      "sourceId": "union_budget_be_pattern"
     },
     {
       "id": "agriculture_farmers_welfare",
       "labelEn": "Agriculture & Farmers Welfare",
       "labelHi": "कृषि एवं किसान कल्याण",
-      "ratio": 0,
-      "sourceId": "cga_todo"
+      "ratio": 0.08,
+      "sourceId": "union_budget_be_pattern"
     },
     {
       "id": "health_family_welfare",
       "labelEn": "Health & Family Welfare",
       "labelHi": "स्वास्थ्य एवं परिवार कल्याण",
-      "ratio": 0,
-      "sourceId": "cga_todo"
+      "ratio": 0.1,
+      "sourceId": "union_budget_be_pattern"
     },
     {
       "id": "education",
       "labelEn": "Education",
       "labelHi": "शिक्षा",
-      "ratio": 0,
-      "sourceId": "cga_todo"
-    },
-    {
-      "id": "defence",
-      "labelEn": "Defence",
-      "labelHi": "रक्षा",
-      "ratio": 0,
-      "sourceId": "cga_todo"
+      "ratio": 0.1,
+      "sourceId": "union_budget_be_pattern"
     }
   ]
 }
