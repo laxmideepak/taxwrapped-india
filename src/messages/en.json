@@ -2,6 +2,8 @@
   "welcomeTitle": "Tax Wrapped",
   "welcomeKicker": "INDIA",
   "welcomeSubtitle": "See what the Union spent with your income tax — in rupees, with FY 2024-25 (new regime) numbers.",
+  "welcomeAboutTitle": "What this is",
+  "welcomeAboutBody": "An educational “year in review” for your income tax — like a music Wrapped, but for how your estimated tax lines up with Union spending. We use FY 2024-25 new-regime slab math, then split your tax across CGA-style functional heads and major ministries (from our data files). Not tax advice. Calculations run in your browser; your salary is not sent to our servers.",
   "start": "Start",
   "earnQuestion": "How much did you earn in FY 2024-25?",
   "newRegimeOnly": "New regime only for now — old regime coming soon.",

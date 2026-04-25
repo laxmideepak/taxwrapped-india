@@ -2,6 +2,8 @@
   "welcomeTitle": "Tax Wrapped",
   "welcomeKicker": "भारत",
   "welcomeSubtitle": "देखें Union ने आपके income tax से क्या खर्च किया — रुपयों में, FY 2024-25 (नया रिजीम)।",
+  "welcomeAboutTitle": "यह क्या है",
+  "welcomeAboutBody": "यह आपके income tax के लिए एक शैक्षिक “year in review” है — music Wrapped जैसा, पर यह दिखाता है कि अनुमानित टैक्स Union खर्च के साथ कैसे जुड़ सकता है। हम FY 2024-25 नए रिजीम की slab गणना इस्तेमाल करते हैं, फिर आपके टैक्स को CGA-शैली के शीर्ष सिरों और बड़े मंत्रालयों में बांटते हैं (हमारे डेटा फाइलों से)। टैक्स सलाह नहीं। सब हिसाब आपके ब्राउज़र में; salary हमारे सर्वर पर नहीं जाती।",
   "start": "शुरू करें",
   "earnQuestion": "FY 2024-25 में कुल कमाई कितनी थी?",
   "newRegimeOnly": "अभी सिर्फ new regime — old regime जल्द आएगा।",

@@ -176,7 +176,15 @@ export function TaxWrappedApp({ initialLocale }: TaxWrappedAppProps) {
                       <p className="mt-5 text-balance text-sm leading-6 text-[#0a0a0a]/70 sm:text-base">
                         {copy.welcomeSubtitle}
                       </p>
-                      <div className="mt-7">
+                      <div className="mt-5 w-full max-w-sm rounded-2xl border border-black/10 bg-white/45 px-4 py-3 text-left shadow-sm sm:mx-auto">
+                        <p className="text-[0.65rem] font-extrabold uppercase tracking-[0.18em] text-[#c24e3a]">
+                          {copy.welcomeAboutTitle}
+                        </p>
+                        <p className="mt-2 text-balance text-xs leading-5 text-[#0a0a0a]/65 sm:text-[0.8125rem] sm:leading-6">
+                          {copy.welcomeAboutBody}
+                        </p>
+                      </div>
+                      <div className="mt-6">
                         <button
                           className="wrapped-cta"
                           onClick={() => setStarted(true)}

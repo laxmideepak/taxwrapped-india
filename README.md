@@ -4,6 +4,16 @@ A **year-in-review** experience for Indian income tax—similar in spirit to [Ta
 
 Your salary and tax inputs **stay on the client**; nothing is sent to a server for calculation (see the **Privacy** page in the app at `/privacy`).
 
+### What this project is about
+
+**Tax Wrapped India** is an **educational** “year in review” for your **income tax**—in the same spirit as a music **Wrapped** playlist recap, but here the story is: *if we estimate your tax (FY 2024-25, **new regime**), how might that amount compare to the way the Union’s books group spending?* The app:
+
+1. **Estimates** tax from your salary (or an optional **Form 16** figure).
+2. **Allocates** that amount across **CGA-style functional heads** and **major ministries** using JSON ratio files (illustrative until you swap in **official CGA** provisional actuals).
+3. Presents it as **shareable story cards**—**not** professional tax advice.
+
+The same explanation appears on the app **home** screen under **“What this is”** (and **“यह क्या है”** in Hindi).
+
 ---
 
 ## Features
